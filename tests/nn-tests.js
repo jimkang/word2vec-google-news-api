@@ -3,8 +3,8 @@ var FindNearestNeighbors = require('../find-nearest-neighbors');
 var assertNoError = require('assert-no-error');
 var level = require('level');
 
-var annoyIndexPath = '../annoy-node/tests/data/very-big-test.annoy';
-var wordIndexDbPath = '../annoy-node/tests/data/word-index-google-news.db';
+const annoyIndexPath = '../annoy-node/tests/data/very-big-test.annoy';
+const wordIndexDbPath = '../annoy-node/tests/data/word-index-google-news.db';
 
 var testCases = [
   {

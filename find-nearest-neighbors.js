@@ -68,7 +68,7 @@ function FindNearestNeighbors({annoyIndexPath, wordIndexDb}, createDone) {
     }
 
     function translateAnnoyResults(results, done) {
-      console.log(results);
+      // console.log(results);
       lookUpWordsForIndexes(results.neighbors, sb(assembleTranslation, done));
 
       function assembleTranslation(foundWords) {
