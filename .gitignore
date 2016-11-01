@@ -1,0 +1,4 @@
+.DS_Store
+node_modules
+config
+data/word2vec-google-news-api-chronicler.db
