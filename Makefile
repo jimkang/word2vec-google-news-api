@@ -17,9 +17,11 @@ sync:
 restart-remote:
 	$(PRIVSSHCMD) "service $(PROJECTNAME) restart"
 
+stop-remote:
+	$(PRIVSSHCMD) "service $(PROJECTNAME) stop"
+
 set-permissions:
-	$(PRIVSSHCMD) "chmod +x $(APPDIR)/$(PROJECTNAME).js && \
-	chmod 777 -R $(APPDIR)/data/"
+	$(PRIVSSHCMD) "chmod +x $(APPDIR)/start-$(PROJECTNAME)-server.js"
 
 update-remote: sync set-permissions restart-remote
 
@@ -28,12 +30,15 @@ install-service:
 	systemctl daemon-reload"
 
 set-up-directories:
-	$(PRIVSSHCMD) "mkdir -p $(APPDIR)/data"
+	$(SSHCMD) "mkdir -p $(APPDIR)"
 
 initial-setup: set-up-directories sync set-permissions install-service
 
 check-status:
 	$(SSHCMD) "systemctl status $(PROJECTNAME)"
+
+check-log:
+	$(SSHCMD) "journalctl -r -u $(PROJECTNAME)"
 
 test:
 	node tests/nn-tests.js
