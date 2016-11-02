@@ -6,7 +6,7 @@ var W2VServer = require('./word2vec-google-news-api-server');
 var logFormat = require('log-format');
 const port = 9666;
 
-const annoyIndexPath = '/opt/google-news-w2v/google-news-w2v.annoy';
+const annoyIndexPath = '/opt/google-news-w2v/google-news-angular.annoy';
 const wordIndexDbPath = '/opt/google-news-w2v/word-index-google-news.db';
 
 W2VServer(

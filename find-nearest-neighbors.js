@@ -6,7 +6,7 @@ var queue = require('d3-queue').queue;
 var waterfall = require('async-waterfall');
 
 function FindNearestNeighbors({annoyIndexPath, wordIndexDb}, createDone) {
-  var annoyIndex = new Annoy(300, 'Euclidean');
+  var annoyIndex = new Annoy(300, 'Angular');
   var indexesForWords;
   var wordsForIndexes;
 
