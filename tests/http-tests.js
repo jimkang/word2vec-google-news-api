@@ -188,6 +188,33 @@ var endpointTests = [
   {
     path: '/neighbors',
     qs: {
+      words: [
+        'earth',
+        'humanity'
+      ]
+      .join(','),
+      operation: 'subtract'
+    },
+    expectedStatus: 200,
+    expectedBody: [
+    { distance: 3.1845037937164307, word: 'cryogenic_freezer' },
+      {distance: 3.1923558712005615, word: 'Squirreled_away' },
+      { distance: 3.195155143737793, word: 'Big_Bang_Illingworth' },
+      { distance: 3.204150438308716, word: 'sneaker_soles' },
+      { distance: 3.2056021690368652, word: 'Leta_Shy' },
+      { distance: 3.206554889678955, word: 'spicier_fare' },
+      { distance: 3.2080447673797607, word: 'doorknob_hanger' },
+      { distance: 3.211636543273926, word: '####.That_s' },
+      { distance: 3.2187767028808594, word: 'lug_wrenches' },
+      { distance: 3.2216498851776123, word: 'Mercury_Prockter' },
+      { distance: 3.222452163696289, word: 'Kacyra' },
+      { distance: 3.2233524322509766, word: 'anagama_kiln' }
+    ]
+  },  
+
+  {
+    path: '/neighbors',
+    qs: {
       words: ''
     },
     expectedStatus: 500,

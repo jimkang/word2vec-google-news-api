@@ -107,7 +107,62 @@ var testCases = [
     name: 'No words',
     words: [],
     expected: []
-  }
+  },
+  {
+    name: 'Subtraction',
+    words: ['king', 'man'],
+    operation: 'subtract',
+    expected: [
+      {
+        'word': 'planet_Naboo',
+        'distance': 3.221404552459717
+      },
+      {
+        'word': 'hatcher',
+        'distance': 3.231886386871338
+      },
+      {
+        'word': 'za_za',
+        'distance': 3.2703230381011963
+      },
+      {
+        'word': 'cumber',
+        'distance': 3.2828662395477295
+      },
+      {
+        'word': 'equus',
+        'distance': 3.303022623062134
+      },
+      {
+        'word': 'd\'_auteur',
+        'distance': 3.303894281387329
+      },
+      {
+        'word': 'virtu',
+        'distance': 3.30523681640625
+      },
+      {
+        'word': 'pagan_deity',
+        'distance': 3.3059465885162354
+      },
+      {
+        'word': 'sheek',
+        'distance': 3.312138080596924
+      },
+      {
+        'word': 'semitism',
+        'distance': 3.3183581829071045
+      },
+      {
+        'word': 'dolorosa',
+        'distance': 3.3207483291625977
+      },
+      {
+        'word': 'hu_hu',
+        'distance': 3.3234245777130127
+      }
+    ]
+  },
 ];
 
 testCases.forEach(runTest);
@@ -128,7 +183,7 @@ function runTest(testCase) {
 
     function runFind(error, findNearestNeighbors) {
       assertNoError(t.ok, error, 'No error while creating findNearestNeighbors');
-      findNearestNeighbors(testCase.words, 10, checkResult);
+      findNearestNeighbors(testCase.words, testCase.operation, 10, checkResult);
     }
 
     function checkResult(error, neighbors) {

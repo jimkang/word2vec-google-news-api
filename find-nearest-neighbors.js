@@ -20,11 +20,16 @@ function FindNearestNeighbors({annoyIndexPath, wordIndexDb}, createDone) {
   wordsForIndexes = subleveledDB.sublevel('words');
   callNextTick(createDone, null, findNearestNeighbors);
 
-  function findNearestNeighbors(words, numberOfNeighbors, done) {
+  function findNearestNeighbors(words, operation, numberOfNeighbors, done) {
     if (words.length === 1) {
       indexesForWords.get(words[0], sb(getNeighborsToIndex, done));
     }
     else if (words.length > 1) {
+      var op = 'add';
+      if (operation && operation === 'subtract') {
+        op = operation;
+      }
+
       waterfall(
         [
           getIndexesForWords,
@@ -85,29 +90,23 @@ function FindNearestNeighbors({annoyIndexPath, wordIndexDb}, createDone) {
         }
         callNextTick(done, null, translation);
       }
-    }    
+    }
+
+    function sumVectors(vectors, done) {
+      var sum = [];
+
+      if (vectors.length > 1 && vectors[0].length > 0) {
+        let reduceOp = (op === 'subtract') ? subtractVector : addVector;
+        sum = vectors.slice(1).reduce(reduceOp, vectors[0]);
+      }
+      callNextTick(done, null, sum);
+    }
   }
 
   function getVectorsForIndexes(indexStrings, done) {
     callNextTick(
       done, null, indexStrings.map(toInt).map(annoyIndex.getItem.bind(annoyIndex))
     );
-  }
-
-  function sumVectors(vectors, done) {
-    var sum = [];
-
-    if (vectors.length > 0 && vectors[0].length > 0) {
-      sum = vectors.reduce(addVector, vectors[0].map(zero));
-    }
-    callNextTick(done, null, sum);
-
-    function addVector(currentSum, v) {
-      for (var i = 0; i < currentSum.length; ++i) {
-        currentSum[i] += v[i];
-      }
-      return currentSum;
-    }
   }
 
   function lookUpWordsForIndexes(indexes, done) {
@@ -121,12 +120,22 @@ function FindNearestNeighbors({annoyIndexPath, wordIndexDb}, createDone) {
   }
 }
 
-function zero() {
-  return 0;
-}
-
 function toInt(s) {
   return parseInt(s, 10);
+}
+
+function addVector(currentSum, v) {
+  for (var i = 0; i < currentSum.length; ++i) {
+    currentSum[i] += v[i];
+  }
+  return currentSum;
+}
+
+function subtractVector(currentDifference, v) {
+  for (var i = 0; i < currentDifference.length; ++i) {
+    currentDifference[i] -= v[i];
+  }
+  return currentDifference;
 }
 
 module.exports = FindNearestNeighbors;

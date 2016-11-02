@@ -41,8 +41,13 @@ function Word2VecGoogleNewsAPIServer({annoyIndexPath, wordIndexDbPath}, done) {
 
   function neighborsEndpoint(req, res, next) {
     var words;
+    var operation;
+
     if (req.query.words) {
       words = req.query.words.split(',');
+    }
+    if (req.query.operation) {
+      operation = req.query.operation;
     }
     
     if (!words || words.length < 1) {
@@ -56,7 +61,7 @@ function Word2VecGoogleNewsAPIServer({annoyIndexPath, wordIndexDbPath}, done) {
       if (numberOfNeighbors > maxNeighbors) {
         numberOfNeighbors = maxNeighbors;
       }
-      findNearestNeighbors(words, numberOfNeighbors, checkNeighbors);
+      findNearestNeighbors(words, operation, numberOfNeighbors, checkNeighbors);
     }
 
     function checkNeighbors(error, neighbors) {
