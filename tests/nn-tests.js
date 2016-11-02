@@ -3,7 +3,7 @@ var FindNearestNeighbors = require('../find-nearest-neighbors');
 var assertNoError = require('assert-no-error');
 var level = require('level');
 
-const annoyIndexPath = '../annoy-node/tests/data/very-big-test.annoy';
+const annoyIndexPath = '../annoy-node/tests/data/google-news-angular.annoy';
 const wordIndexDbPath = '../annoy-node/tests/data/word-index-google-news.db';
 
 var testCases = [
@@ -12,45 +12,45 @@ var testCases = [
     words: ['triangulation'],
     expected: [
       {
-        'word': 'unilateralists',
-        'distance': 3.7333741188049316
+        "word": "Clintonian",
+        "distance": 1.0059351921081543
       },
       {
-        'word': 'datum',
-        'distance': 3.8950395584106445
+        "word": "Clintonism",
+        "distance": 1.0545074939727783
       },
       {
-        'word': 'reflexivity',
-        'distance': 3.897528648376465
+        "word": "liberal_internationalism",
+        "distance": 1.0681909322738647
       },
       {
-        'word': 'empiricism',
-        'distance': 3.9503653049468994
+        "word": "Rubinomics",
+        "distance": 1.0820257663726807
       },
       {
-        'word': 'financialisation',
-        'distance': 3.956968069076538
+        "word": "liberal_interventionism",
+        "distance": 1.1076396703720093
       },
       {
-        'word': 'CheneyBush',
-        'distance': 3.9689197540283203
+        "word": "Clintonite",
+        "distance": 1.1194398403167725
       },
       {
-        'word': 'Authoritarian_regimes',
-        'distance': 3.981210231781006
+        "word": "Rooseveltian",
+        "distance": 1.1276379823684692
       },
       {
-        'word': 'leftwards',
-        'distance': 4.008560657501221
+        "word": "Kissingerian",
+        "distance": 1.129833698272705
       },
       {
-        'word': 'Keynesian_stimulus',
-        'distance': 4.014692783355713
+        "word": "multilateralist",
+        "distance": 1.133465051651001
       },
       {
-        'word': 'neo_liberal_globalization',
-        'distance': 4.015151023864746
-      }      
+        "word": "compassionate_conservatism",
+        "distance": 1.1389541625976562
+      }
     ]
   },
   {
@@ -58,48 +58,52 @@ var testCases = [
     words: ['woman', 'king'],
     expected: [
       {
-        'word': 'girl',
-        'distance': 3.3799474239349365
+        "word": "prince",
+        "distance": 0.8950392603874207
       },
       {
-        'word': 'boy',
-        'distance': 3.505894184112549
+        "word": "PRINCESS_Diana",
+        "distance": 1.0395269393920898
       },
       {
-        'word': 'teenage_girl',
-        'distance': 3.5664563179016113
+        "word": "princes",
+        "distance": 1.0412087440490723
       },
       {
-        'word': 'Yannick_Brea',
-        'distance': 3.8133106231689453
+        "word": "playboy_prince",
+        "distance": 1.045539140701294
       },
       {
-        'word': 'sexually_propositioning',
-        'distance': 3.876760721206665
+        "word": "Balian_Orlando_Bloom",
+        "distance": 1.0489743947982788
       },
       {
-        'word': 'Alleged_mobster',
-        'distance': 3.881298303604126
+        "word": "expert_Dickie_Arbiter",
+        "distance": 1.0665950775146484
       },
       {
-        'word': 'Meir_Amar',
-        'distance': 3.900414228439331
+        "word": "mistress",
+        "distance": 1.0721772909164429
       },
       {
-        'word': 'practiced_witchcraft',
-        'distance': 3.905587911605835
+        "word": "Queen_Cassiopeia",
+        "distance": 1.080484390258789
       },
       {
-        'word': 'Galperina',
-        'distance': 3.9068102836608887
+        "word": "conquered_Annapurna",
+        "distance": 1.0813522338867188
       },
       {
-        'word': 'Laura_Nager',
-        'distance': 3.915722608566284
+        "word": "Daenerys",
+        "distance": 1.0842951536178589
       },
       {
-        'word': 'immolated_herself',
-        'distance': 3.918130397796631
+        "word": "Queen_Vashti",
+        "distance": 1.0870975255966187
+      },
+      {
+        "word": "heir",
+        "distance": 1.0899335145950317
       }
     ]
   },
@@ -110,56 +114,56 @@ var testCases = [
   },
   {
     name: 'Subtraction',
-    words: ['king', 'man'],
+    words: ['smell', 'good'],
     operation: 'subtract',
     expected: [
       {
-        'word': 'planet_Naboo',
-        'distance': 3.221404552459717
+        "word": "stench",
+        "distance": 0.8359224796295166
       },
       {
-        'word': 'hatcher',
-        'distance': 3.231886386871338
+        "word": "pungent_odor",
+        "distance": 0.9058054685592651
       },
       {
-        'word': 'za_za',
-        'distance': 3.2703230381011963
+        "word": "overpowering_smell",
+        "distance": 0.9204326272010803
       },
       {
-        'word': 'cumber',
-        'distance': 3.2828662395477295
+        "word": "sulfurous_odor",
+        "distance": 0.9459594488143921
       },
       {
-        'word': 'equus',
-        'distance': 3.303022623062134
+        "word": "acrid_odor",
+        "distance": 0.9682427644729614
       },
       {
-        'word': 'd\'_auteur',
-        'distance': 3.303894281387329
+        "word": "smells_emanating",
+        "distance": 0.9750202298164368
       },
       {
-        'word': 'virtu',
-        'distance': 3.30523681640625
+        "word": "rancid_odor",
+        "distance": 0.9977137446403503
       },
       {
-        'word': 'pagan_deity',
-        'distance': 3.3059465885162354
+        "word": "stenches",
+        "distance": 1.0022343397140503
       },
       {
-        'word': 'sheek',
-        'distance': 3.312138080596924
+        "word": "rotten_eggs_smell",
+        "distance": 1.0070266723632812
       },
       {
-        'word': 'semitism',
-        'distance': 3.3183581829071045
+        "word": "acrid_stench",
+        "distance": 1.023805856704712
       },
       {
-        'word': 'dolorosa',
-        'distance': 3.3207483291625977
+        "word": "fumes_emanating",
+        "distance": 1.0247372388839722
       },
       {
-        'word': 'hu_hu',
-        'distance': 3.3234245777130127
+        "word": "acrid_aroma",
+        "distance": 1.0283162593841553
       }
     ]
   },
@@ -188,7 +192,7 @@ function runTest(testCase) {
 
     function checkResult(error, neighbors) {
       assertNoError(t.ok, error, 'No error while finding neighbors.');
-      console.log(JSON.stringify(neighbors, null, '  '));
+      // console.log(JSON.stringify(neighbors, null, '  '));
       t.deepEqual(neighbors, testCase.expected, 'Neighbors are correct.');
       db.close(t.end);
     }
