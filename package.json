@@ -30,6 +30,7 @@
     "d3-queue": "^3.0.3",
     "level": "^1.5.0",
     "level-sublevel": "^6.6.1",
+    "log-format": "^1.0.0",
     "restify": "^4.0.3",
     "standard-bail": "^2.0.1"
   }

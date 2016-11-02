@@ -1,0 +1,13 @@
+[Unit]
+Description=word2vec-google-news-api
+After=network.target
+[Service]
+ExecStart=/opt/word2vec-google-news-api/start-word2vec-google-news-api-server.js
+Restart=always
+User=bot
+Group=bot
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
+WorkingDirectory=/opt/word2vec-google-news-api
+[Install]
+WantedBy=multi-user.target

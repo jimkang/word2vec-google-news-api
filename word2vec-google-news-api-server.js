@@ -5,7 +5,7 @@ var level = require('level');
 const maxNeighbors = 100;
 
 function Word2VecGoogleNewsAPIServer({annoyIndexPath, wordIndexDbPath}, done) {
-  console.log(annoyIndexPath, wordIndexDbPath);
+  // console.log(annoyIndexPath, wordIndexDbPath);
   var findNearestNeighbors;
   var db = level(wordIndexDbPath);
 
