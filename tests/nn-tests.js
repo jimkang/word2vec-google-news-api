@@ -167,6 +167,68 @@ var testCases = [
       }
     ]
   },
+   {
+    name: 'Tolerate words not in index',
+    words: ['asdf234dsfwert24', 'woman', '_______||||', 'king'],
+    expected: [
+      {
+        "word": "prince",
+        "distance": 0.8950392603874207
+      },
+      {
+        "word": "PRINCESS_Diana",
+        "distance": 1.0395269393920898
+      },
+      {
+        "word": "princes",
+        "distance": 1.0412087440490723
+      },
+      {
+        "word": "playboy_prince",
+        "distance": 1.045539140701294
+      },
+      {
+        "word": "Balian_Orlando_Bloom",
+        "distance": 1.0489743947982788
+      },
+      {
+        "word": "expert_Dickie_Arbiter",
+        "distance": 1.0665950775146484
+      },
+      {
+        "word": "mistress",
+        "distance": 1.0721772909164429
+      },
+      {
+        "word": "Queen_Cassiopeia",
+        "distance": 1.080484390258789
+      },
+      {
+        "word": "conquered_Annapurna",
+        "distance": 1.0813522338867188
+      },
+      {
+        "word": "Daenerys",
+        "distance": 1.0842951536178589
+      },
+      {
+        "word": "Queen_Vashti",
+        "distance": 1.0870975255966187
+      },
+      {
+        "word": "heir",
+        "distance": 1.0899335145950317
+      },
+      {
+        word: 'Tessa_Rachel_Weisz',
+        distance: 1.0973091125488281,
+      },
+      {
+        word: 'god_Zeus',
+        distance: 1.1002873182296753
+      }
+    ]
+  },
 ];
 
 testCases.forEach(runTest);

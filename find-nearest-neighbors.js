@@ -48,10 +48,14 @@ function FindNearestNeighbors({annoyIndexPath, wordIndexDb}, createDone) {
     function getIndexesForWords(getIndexesDone) {
       var q = queue(100);
       words.forEach(queueIndexLookup);
-      q.awaitAll(getIndexesDone);
+      q.awaitAll(cleanUpResults);
+
+      function cleanUpResults(error, results) {
+        getIndexesDone(error, results.filter(defined));
+      }
 
       function queueIndexLookup(word) {
-        q.defer(indexesForWords.get, word);
+        q.defer(getIndexForWordForgivingly, word);
       }
     }
 
@@ -118,6 +122,25 @@ function FindNearestNeighbors({annoyIndexPath, wordIndexDb}, createDone) {
       q.defer(wordsForIndexes.get, index);
     }
   }
+
+  function getIndexForWordForgivingly(word, done) {
+    indexesForWords.get(word, checkResult);
+
+    function checkResult(error, index) {
+      if (error) {
+        if (error.notFound) {
+          // Don't pass error *or* index.
+          done();
+        }
+        else {
+          done(error);
+        }
+      }
+      else {
+        done(null, index);
+      }
+    }
+  }
 }
 
 function toInt(s) {
@@ -136,6 +159,10 @@ function subtractVector(currentDifference, v) {
     currentDifference[i] -= v[i];
   }
   return currentDifference;
+}
+
+function defined(n) {
+  return n !== undefined;
 }
 
 module.exports = FindNearestNeighbors;
