@@ -5,8 +5,8 @@ var callNextTick = require('call-next-tick');
 var queue = require('d3-queue').queue;
 var waterfall = require('async-waterfall');
 
-function FindNearestNeighbors({annoyIndexPath, wordIndexDb}, createDone) {
-  var annoyIndex = new Annoy(300, 'Angular');
+function FindNearestNeighbors({annoyIndexPath, metric = 'Angular', wordIndexDb}, createDone) {
+  var annoyIndex = new Annoy(300, metric);
   var indexesForWords;
   var wordsForIndexes;
 

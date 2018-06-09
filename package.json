@@ -24,7 +24,7 @@
     "tape": "^4.6.0"
   },
   "dependencies": {
-    "annoy": "^1.0.8",
+    "annoy": "^2.0.1",
     "async-waterfall": "^0.1.5",
     "call-next-tick": "^1.1.2",
     "d3-queue": "^3.0.3",
