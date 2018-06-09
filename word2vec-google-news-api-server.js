@@ -4,7 +4,10 @@ var level = require('level');
 
 const maxNeighbors = 100;
 
-function Word2VecGoogleNewsAPIServer({annoyIndexPath, wordIndexDbPath}, done) {
+function Word2VecGoogleNewsAPIServer(
+  { annoyIndexPath, wordIndexDbPath },
+  done
+) {
   // console.log(annoyIndexPath, wordIndexDbPath);
   var findNearestNeighbors;
   var db = level(wordIndexDbPath);
@@ -32,8 +35,7 @@ function Word2VecGoogleNewsAPIServer({annoyIndexPath, wordIndexDbPath}, done) {
   function saveFindNN(error, fnn) {
     if (error) {
       done(error);
-    }
-    else {
+    } else {
       findNearestNeighbors = fnn;
       done(null, server);
     }
@@ -49,11 +51,10 @@ function Word2VecGoogleNewsAPIServer({annoyIndexPath, wordIndexDbPath}, done) {
     if (req.query.operation) {
       operation = req.query.operation;
     }
-    
+
     if (!words || words.length < 1) {
       next(new Error('No words provided to /neighbors.'));
-    }
-    else {
+    } else {
       var numberOfNeighbors = 10;
       if (!isNaN(req.query.quantity)) {
         numberOfNeighbors = parseInt(req.query.quantity);
@@ -67,8 +68,7 @@ function Word2VecGoogleNewsAPIServer({annoyIndexPath, wordIndexDbPath}, done) {
     function checkNeighbors(error, neighbors) {
       if (error) {
         next(error);
-      }
-      else {
+      } else {
         respondWithJSON(neighbors, res, next);
       }
     }
@@ -80,8 +80,7 @@ function Word2VecGoogleNewsAPIServer({annoyIndexPath, wordIndexDbPath}, done) {
     function closeServer(error) {
       if (error) {
         done(error);
-      }
-      else {
+      } else {
         server.close(done);
       }
     }
@@ -100,12 +99,9 @@ function respondWithJSON(jsonObject, res, next) {
 }
 
 function respondHead(req, res, next) {
-  res.writeHead(
-    200, 
-    {
-      'content-type': 'application/json'
-    }
-  );
+  res.writeHead(200, {
+    'content-type': 'application/json'
+  });
   res.end();
   next();
 }

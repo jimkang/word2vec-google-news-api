@@ -44,6 +44,5 @@ test:
 	node tests/nn-tests.js
 	node tests/http-tests.js
 
-lint:
-	./node_modules/.bin/eslint .
-
+prettier:
+	prettier --single-quote --write "**/*.js"

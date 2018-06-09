@@ -7,7 +7,8 @@ var logFormat = require('log-format');
 const port = 9666;
 
 //const annoyIndexPath = '/opt/google-news-w2v/google-news-angular.annoy';
-const annoyIndexPath = '/opt/google-news-w2v/google-news-angular-2018-build.annoy';
+const annoyIndexPath =
+  '/opt/google-news-w2v/google-news-angular-2018-build.annoy';
 const wordIndexDbPath = '/opt/google-news-w2v/word-index-google-news.db';
 
 W2VServer(
@@ -24,14 +25,13 @@ function useServer(error, server) {
     process.exit(1);
     return;
   }
-  
+
   server.listen(port, onReady);
 
   function onReady(error) {
     if (error) {
       process.stderr.write(error);
-    }
-    else {
+    } else {
       process.stdout.write(logFormat(server.name, 'listening at', server.url));
     }
   }

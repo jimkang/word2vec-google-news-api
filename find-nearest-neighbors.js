@@ -5,7 +5,10 @@ var callNextTick = require('call-next-tick');
 var queue = require('d3-queue').queue;
 var waterfall = require('async-waterfall');
 
-function FindNearestNeighbors({annoyIndexPath, metric = 'Angular', wordIndexDb}, createDone) {
+function FindNearestNeighbors(
+  { annoyIndexPath, metric = 'Angular', wordIndexDb },
+  createDone
+) {
   var annoyIndex = new Annoy(300, metric);
   var indexesForWords;
   var wordsForIndexes;
@@ -23,8 +26,7 @@ function FindNearestNeighbors({annoyIndexPath, metric = 'Angular', wordIndexDb},
   function findNearestNeighbors(words, operation, numberOfNeighbors, done) {
     if (words.length === 1) {
       indexesForWords.get(words[0], sb(getNeighborsToIndex, done));
-    }
-    else if (words.length > 1) {
+    } else if (words.length > 1) {
       var op = 'add';
       if (operation && operation === 'subtract') {
         op = operation;
@@ -40,8 +42,7 @@ function FindNearestNeighbors({annoyIndexPath, metric = 'Angular', wordIndexDb},
         ],
         done
       );
-    }
-    else {
+    } else {
       callNextTick(done, null, []);
     }
 
@@ -70,7 +71,10 @@ function FindNearestNeighbors({annoyIndexPath, metric = 'Angular', wordIndexDb},
     function getNeighborsToIndex(index, done) {
       translateAnnoyResults(
         annoyIndex.getNNsByItem(
-          index, numberOfNeighbors + words.length, -1, true
+          index,
+          numberOfNeighbors + words.length,
+          -1,
+          true
         ),
         done
       );
@@ -100,7 +104,7 @@ function FindNearestNeighbors({annoyIndexPath, metric = 'Angular', wordIndexDb},
       var sum = [];
 
       if (vectors.length > 1 && vectors[0].length > 0) {
-        let reduceOp = (op === 'subtract') ? subtractVector : addVector;
+        let reduceOp = op === 'subtract' ? subtractVector : addVector;
         sum = vectors.slice(1).reduce(reduceOp, vectors[0]);
       }
       callNextTick(done, null, sum);
@@ -109,7 +113,9 @@ function FindNearestNeighbors({annoyIndexPath, metric = 'Angular', wordIndexDb},
 
   function getVectorsForIndexes(indexStrings, done) {
     callNextTick(
-      done, null, indexStrings.map(toInt).map(annoyIndex.getItem.bind(annoyIndex))
+      done,
+      null,
+      indexStrings.map(toInt).map(annoyIndex.getItem.bind(annoyIndex))
     );
   }
 
@@ -131,12 +137,10 @@ function FindNearestNeighbors({annoyIndexPath, metric = 'Angular', wordIndexDb},
         if (error.notFound) {
           // Don't pass error *or* index.
           done();
-        }
-        else {
+        } else {
           done(error);
         }
-      }
-      else {
+      } else {
         done(null, index);
       }
     }
